@@ -17,10 +17,10 @@ model User {
   age            Int
   email          String           @unique
   isAdmin        Role             @default(BASIC)
-  preferences    Json
   writtenPosts   Post[]           @relation("WrittenPosts")
   favouritePosts Post[]           @relation("FavouritePosts")
-  userPreference UserPreferences?
+  userPreference UserPreferences? @relation(fields: [userPreferenceId], references:[id])
+  userPreferenceId String? @unique
 
   @@unique([age, name])
   @@index([email])
@@ -29,8 +29,7 @@ model User {
 model UserPreferences {
   id           String  @id @default(uuid())
   emailUpdates Boolean
-  userId       String  @unique
-  user         User    @relation(fields: [userId], references: [id])
+  user         User?
 }
 
 model Post {

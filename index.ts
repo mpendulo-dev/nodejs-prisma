@@ -3,17 +3,41 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-	await prisma.user.create({
-		data: {
-			email: 'mkhulu@test.com',
-			name: 'mkhulu',
-			age: 27,
-			preferences: { emailUpdates: false },
+	// await prisma.user.create({
+	// 	data: {
+	// 		email: 'mayga@test.com',
+	// 		name: 'Rhino',
+	// 		age: 17,
+	// 		userPreference: {
+	// 			create: {
+	// 				emailUpdates: true,
+	// 			},
+	// 		},
+	// 	},
+	// });
+	// const users = await prisma.user.createMany({
+	// 	data: [
+	// 		{
+	// 			email: 'mpe@test.com',
+	// 			name: 'Answer',
+	// 			age: 14,
+	// 		},
+	// 		{
+	// 			email: 'alto@test.com',
+	// 			name: 'Goma',
+	// 			age: 16,
+	// 		},
+	// 	],
+	// });
+
+	// console.log(users);
+
+	const user = await prisma.user.findUnique({
+		where: {
+			email: 'alto@test.com',
 		},
 	});
-
-	const allUsers = await prisma.user.findFirst();
-	console.log(allUsers);
+	console.log(user);
 }
 
 main()
